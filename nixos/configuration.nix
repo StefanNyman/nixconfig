@@ -56,9 +56,19 @@
   };
 
   # Enable the GNOME 3 Desktop Environment.
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome3.enable = true;
+  
+  services.xserver = {
+    enable = true;
+    displayManager = {
+      defaultSession = "none+bspwm";
+    };
+    desktopManager = {
+      xterm.enable = true;
+    };
+    windowManager = {
+      bspwm.enable = true;
+    };
+  };
   
 
   # Configure keymap in X11
@@ -81,6 +91,7 @@
   #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   # };
   users.users.z = {
+    shell = pkgs.bash;
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "video" "docker" ];
   };

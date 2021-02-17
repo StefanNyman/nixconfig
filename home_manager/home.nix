@@ -7,6 +7,7 @@ let
   backgroundColor = "#243442";
   foregroundColor = "#deedf9";
   warningColor = "#e23131";
+  dotfileDir = "/home/z/nixconfig";
 in
 {
 
@@ -23,6 +24,19 @@ in
       backgroundColor = "rgba(32, 39, 51, 0.9)";
     };
     go.enable = true;
+    bash = {
+      enable = true;
+      shellAliases = {
+        "ga" = "git add";
+	"gc" = "git commit";
+	"gd" = "git diff";
+	"gdc" = "git diff --cached";
+	"gs" = "git status";
+	"gp" = "git push";
+	"glg" = "git log --color --graph --pretty --oneline";
+	"glgb" = "git log --all --graph --decorate --oneline --simplify-by-decoration";
+      };
+    };
   };
 
   # Home Manager needs a bit of information about you and the
@@ -31,19 +45,11 @@ in
     username = "z";
     homeDirectory = "/home/z";
     file = {
-      ".inputrc".text =
-      ''
-set editing-mode vi
-set keymap vi-command
-      '';
-      ".bashrc".text =
-      ''
-export EDITOR=nvim
-export PATH=$PATH:~/bin:~/go/bin
-alias gs="git status"
-      '';
     };
   };
+
+  xdg.configFile."bspwm/bspwmrc".source = "${dotfileDir}/bspwm/bspwmrc";
+  xdg.configFile."sxhkd/sxhkdrc".source = "${dotfileDir}/sxhkd/sxhkdrc";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
